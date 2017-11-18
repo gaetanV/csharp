@@ -1,26 +1,36 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using AppWebServer;
 
 namespace git
 {
     class Program
     {
-        private static async Task ProcessRepositories()
+
+        static void Main(string[] args)
+        {
+            WebServer ws = new WebServer("http://localhost:8080/", ProcessRepositories);
+            //ws.Run();
+            ws.RunAsync();
+            Console.ReadKey();
+            ws.Stop();
+        }
+    
+        private static async Task<string> ProcessRepositories(HttpListenerRequest request)
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add("User-Agent", "Github Travis");
-            var stringTask = client.GetStringAsync("https://api.github.com/users/gaetanV");
-            var msg = await stringTask;
-            Console.Write(msg);
+            try {
+                return await client.GetStringAsync("https://api.github.com/users/gaetanV");
+            } catch {
+                return "{}";
+            }
         }
 
-        static void Main(string[] args)
-        {
-            ProcessRepositories().Wait();
-        }
     }
 }
