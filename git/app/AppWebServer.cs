@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Text;
+using System.Net.Sockets;
 
 namespace AppWebServer
 {
@@ -18,7 +19,7 @@ namespace AppWebServer
             this.listener.Start();
         }
 
-        public async void RunAsync(){
+        public async Task RunAsync(){
             Console.WriteLine("Webserver start...");
             while (this.listener.IsListening){
                 try{
@@ -28,7 +29,7 @@ namespace AppWebServer
             }
         }
 
-        public async void Run()
+        public async Task Run()
         {
             Console.WriteLine("Webserver start...");
             while (this.listener.IsListening)

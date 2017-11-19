@@ -12,13 +12,13 @@ namespace git
 
         static void Main(string[] args)
         {
-            WebServer ws = new WebServer("http://localhost:8080/", ProcessRepositories);
-            //ws.Run();
-            ws.RunAsync();
-            Console.ReadKey();
-            ws.Stop();
+            WebServer ws = new WebServer("http://*:8080/", ProcessRepositories);
+            ws.RunAsync().Wait();
+            //ws.Run().Wait();
+            //Console.ReadKey();
+            //ws.Stop();
         }
-    
+           
         private static async Task<string> ProcessRepositories(HttpListenerRequest request)
         {
             var client = new HttpClient();

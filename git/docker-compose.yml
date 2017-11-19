@@ -5,3 +5,5 @@ services:
         build:
             context: .
             dockerfile: net.dockerfile
+        ports:
+            - "8080:8080"
