@@ -37,27 +37,14 @@ namespace AppWebServer
                 try
                 {
                     HttpListenerContext context = await this.listener.GetContextAsync();
-                    await this.Process(context);
+                    //HttpListenerContext context = this.listener.GetContext();
+                    this.Process(context);
                 }
                 catch { }
             }
         }
 
-        public async void Run()
-        {
-            Console.WriteLine("Webserver start...");
-            while (this.listener.IsListening)
-            {
-                try
-                {
-                    HttpListenerContext context = this.listener.GetContext();
-                    await this.Process(context);
-                }
-                catch { }
-            }
-        }
-
-        private async Task Process(HttpListenerContext res)
+        private async void Process(HttpListenerContext res)
         {
             var task = (Task<string>)responderMethod.Invoke(responderClass, null);
             string rstr = await task;

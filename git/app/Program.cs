@@ -25,20 +25,25 @@ namespace git
                 try
                 {
                     HttpListenerContext res = await listener.GetContextAsync();
-                    string rstr = await ProcessRepositories(res.Request);
-                    byte[] buf = Encoding.UTF8.GetBytes(rstr);
-                    res.Response.Headers.Add("Content-type", "application/json");
-                    res.Response.StatusCode = (int)HttpStatusCode.OK;
-                    res.Response.ContentLength64 = buf.Length;
-                    res.Response.OutputStream.Write(buf, 0, buf.Length);
-                    res.Response.OutputStream.Flush();
-                    res.Response.OutputStream.Close();
+                    Process(res);
                 }
                 catch { }
             }
           
         }
 
+        private static async void Process(HttpListenerContext res)
+        {
+            string rstr = await ProcessRepositories(res.Request);
+            byte[] buf = Encoding.UTF8.GetBytes(rstr);
+            res.Response.Headers.Add("Content-type", "application/json");
+            res.Response.StatusCode = (int)HttpStatusCode.OK;
+            res.Response.ContentLength64 = buf.Length;
+            res.Response.OutputStream.Write(buf, 0, buf.Length);
+            res.Response.OutputStream.Flush();
+            res.Response.OutputStream.Close();
+        }
+        
         private static async Task<string> ProcessRepositories(HttpListenerRequest request)
         {
             var client = new HttpClient();
