@@ -6,3 +6,5 @@
 /**/package-lock.json
 /typescript/
 /**/*.exe
+/**/*.o
+/**/*.dll

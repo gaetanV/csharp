@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Diagnostics;
 using System.Text;
+using System.Runtime.InteropServices;
+
 namespace mapserver.Controllers
 {
     [Route("mapserver/")]
@@ -40,7 +42,7 @@ namespace mapserver.Controllers
             }
          
         }
-
+       
         [HttpGet("imagemagic")]
         public string getImagemagic(){
             System.Diagnostics.Process imagemagic = new System.Diagnostics.Process();
@@ -59,7 +61,16 @@ namespace mapserver.Controllers
                 return "ERROR";
             }    
         }
-        
+
+        [DllImport("./C/imagemagic.dll")]
+        public static extern void image (StringBuilder buffer);
+
+        [HttpGet("imagemagicdll")]
+        public string getImagemagicDll(){
+            StringBuilder buff = new StringBuilder(256);
+            image(buff);
+            return buff.ToString();
+        }
 
         [HttpGet("wms")]
         public ActionResult GetWms(int? x,int? y)

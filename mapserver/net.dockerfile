@@ -4,6 +4,9 @@ RUN apt-get install gcc -y;
 COPY ./ /app
 WORKDIR /app/C
 RUN gcc -o imagemagic.exe imagemagic.c
+RUN gcc -c imagemagic.c
+RUN gcc -shared -o imagemagic.dll imagemagic.o
+
 WORKDIR /app
 RUN dotnet restore
 ENTRYPOINT ["dotnet","run"]
