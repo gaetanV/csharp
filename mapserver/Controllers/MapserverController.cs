@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
-
+using System.Diagnostics;
+using System.Text;
 namespace mapserver.Controllers
 {
     [Route("mapserver/")]
@@ -39,6 +40,26 @@ namespace mapserver.Controllers
             }
          
         }
+
+        [HttpGet("imagemagic")]
+        public string getImagemagic(){
+            System.Diagnostics.Process imagemagic = new System.Diagnostics.Process();
+            imagemagic.StartInfo.FileName = "./C/imagemagic.exe";
+            imagemagic.StartInfo.CreateNoWindow = false;
+            imagemagic.StartInfo.RedirectStandardOutput = true;
+            imagemagic.StartInfo.RedirectStandardError = true;
+            imagemagic.Start(); 
+            imagemagic.WaitForExit();
+            //imagemagic.StandardError.ReadToEnd();
+            string output = imagemagic.StandardOutput.ReadToEnd();
+            int result = imagemagic.ExitCode;
+            if(result == 1){
+                return output;
+            } else {
+                return "ERROR";
+            }    
+        }
+        
 
         [HttpGet("wms")]
         public ActionResult GetWms(int? x,int? y)
