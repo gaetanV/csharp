@@ -49,9 +49,9 @@ namespace mapserver.Controllers
             imagemagic.StartInfo.RedirectStandardOutput = true;
             imagemagic.StartInfo.RedirectStandardError = true;
             imagemagic.Start(); 
-            imagemagic.WaitForExit();
-            //imagemagic.StandardError.ReadToEnd();
             string output = imagemagic.StandardOutput.ReadToEnd();
+            //imagemagic.StandardError.ReadToEnd();
+            imagemagic.WaitForExit();
             int result = imagemagic.ExitCode;
             if(result == 1){
                 return output;

@@ -1,0 +1,13 @@
+version  : '3.3'
+
+services:
+    csharp:        
+        build:
+            context: .
+            dockerfile: net.dockerfile
+        ports:
+            - "5000:5000"
+
+    
+
+
