@@ -8,7 +8,7 @@ namespace mapserver.Service
     {
 
         [DllImport("./C/imagemagic.dll")]
-        public static extern void image (StringBuilder buffer);
+        private static extern void image (StringBuilder buffer);
 
         public string getImagemagicDll(){
             StringBuilder buff = new StringBuilder(256);
