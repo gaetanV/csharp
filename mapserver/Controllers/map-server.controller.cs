@@ -20,17 +20,14 @@ namespace mapserver.Controllers
                 }
                 return File(System.IO.File.ReadAllBytes($"./Ressources/{x}.jpg"), "image/jpg");
             } 
-            catch (FileNotFoundException) {
-                return Content("FILE NOT FOUND!");
-            }
             catch (ArgumentException e) {
-                return Content($"{e.Message}");
+                return BadRequest($"{e.Message}");
             } 
             catch {
-                return Content("ERROR");
+                return NotFound();
             }
         }
-       
+     
         [HttpGet("imagemagic")]
         public string getImagemagic(){
             return Mapservices.getImagemagicDll();
@@ -45,14 +42,11 @@ namespace mapserver.Controllers
                 }
                 return File(System.IO.File.ReadAllBytes($"./Ressources/{x}.jpg"), "image/jpg");
             } 
-            catch (FileNotFoundException) {
-                return Content("FILE NOT FOUND!");
-            }
             catch (ArgumentException e) {
-                return Content($"{e.Message}");
+                return BadRequest($"{e.Message}");
             } 
             catch {
-                return Content("ERROR");
+               return NotFound();
             }
          
         }
