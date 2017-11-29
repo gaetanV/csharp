@@ -27,11 +27,6 @@ namespace mapserver.Controllers
                 return NotFound();
             }
         }
-     
-        [HttpGet("imagemagic")]
-        public string getImagemagic(){
-            return Mapservices.getImagemagicDll();
-        }
 
         [HttpGet("wms")]
         public ActionResult GetWms(int? x,int? y)
@@ -48,7 +43,17 @@ namespace mapserver.Controllers
             catch {
                return NotFound();
             }
-         
         }
+
+        [HttpGet("imagemagic/string")]
+        public string getImagemagic(){
+            return Mapservices.getImagemagicDll();
+        }
+
+        [HttpGet("imagemagic/unsafe")]
+        public string getImagemagicUnsafe(){
+            return Mapservices.getImagemagicDllUnsafe();
+        }
+
     }
 }
