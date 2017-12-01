@@ -1,9 +1,0 @@
-namespace Interface
-{
-
-    interface Controller
-    {
-
-    }
-
-}

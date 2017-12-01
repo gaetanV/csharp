@@ -9,7 +9,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Json;
 
-namespace Stream
+namespace Server.Tcp.Server
 {
     class StreamServer {
 
@@ -79,9 +79,9 @@ namespace Stream
         private static Dictionary<string, string> getCookie(String header)
         {
            Dictionary<string, string> result = new Dictionary<string, string>();
-           GroupCollection a = new Regex("Cookie: (.*)").Match(header).Groups;
-           if( a.Count > 0){
-                foreach (string c in a[1].Value.Trim().Split(' '))
+           Match match = new Regex("Cookie: (.*)").Match(header);
+           if (match.Success && match.Groups.Count == 1) {
+                foreach (string c in match.Groups[1].Value.Trim().Split(' '))
                 {
                     string[] d = c.Trim().Split("=");
                     if(d.Length == 2) {

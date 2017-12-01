@@ -1,6 +1,6 @@
 using System;
 
-namespace Decoration
+namespace Server.Http.Decoration
 {
 
     public class RouteAttribute : Attribute
@@ -16,11 +16,11 @@ namespace Decoration
 
     public class HttpGetAttribute : Attribute
     {
-        public string Description;
+        public string Path;
 
-        public HttpGetAttribute(string myValue)
+        public HttpGetAttribute(string path)
         {
-            this.Description = myValue;
+            this.Path = path;
 
         }
 
