@@ -49,7 +49,7 @@ namespace AppWebServer
             var task = (Task<string>)responderMethod.Invoke(responderClass, null);
             string rstr = await task;
             byte[] buf = Encoding.UTF8.GetBytes(rstr);
-            res.Response.Headers.Add("Content-type", "application/json");
+            res.Response.Headers.Add("Content-type", "text/html");
             res.Response.StatusCode = (int)HttpStatusCode.OK;
             res.Response.ContentLength64 = buf.Length;
             res.Response.OutputStream.Write(buf, 0, buf.Length);

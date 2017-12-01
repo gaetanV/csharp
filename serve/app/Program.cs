@@ -9,6 +9,7 @@ using AppWebServer;
 using Decoration;
 using GIT.Controllers;
 using Interface;
+using Stream;
 
 namespace git
 {
@@ -44,6 +45,8 @@ namespace git
         {
             GitController c = new GitController();
             Program.Route(c);
+            StreamServer d = new StreamServer();
+       
             while (true) { }
         }
 
